@@ -1,6 +1,16 @@
 import express from "express";
-import { registerUser } from "../controllers/identity-controller";
+import {
+  resgiterUser,
+  loginUser,
+  refreshTokenUser,
+  logoutUser,
+} from "../controllers/identity-controller.js";
+
 const router = express.Router();
 
-router.post("/register", registerUser);
-module.exports = router;
+router.post("/register", resgiterUser);
+router.post("/login", loginUser);
+router.post("/refresh-token", refreshTokenUser);
+router.post("/logout", logoutUser);
+
+export default router;

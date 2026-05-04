@@ -1,10 +1,21 @@
-import joi from "joi";
+import Joi from "joi";
 
-export const validateRegistration = (data) => {
-  const schema = joi.object({
-    username: joi.string().min(3).max(50).required(),
-    email: joi.string().email().required(),
-    password: joi.string().min(6).required(),
+const validateRegistration = (data) => {
+  const schema = Joi.object({
+    username: Joi.string().min(3).max(50).required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
   });
+
   return schema.validate(data);
 };
+
+const validatelogin = (data) => {
+  const schema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
+  });
+
+  return schema.validate(data);
+};
+export { validateRegistration, validatelogin };
