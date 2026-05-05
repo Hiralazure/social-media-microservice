@@ -53,7 +53,7 @@ const resgiterUser = async (req, res) => {
 const loginUser = async (req, res) => {
   logger.info("Login endpoint hit...");
   try {
-    const { error } = validatelogin(req.body);
+    const { error,value } = validatelogin(req.body);
     if (error) {
       logger.warn("Validation error", error.details[0].message);
       return res.status(400).json({
@@ -61,7 +61,7 @@ const loginUser = async (req, res) => {
         message: error.details[0].message,
       });
     }
-    const { email, password } = req.body;
+    const { email, password } = value;
     const user = await User.findOne({ email });
 
     if (!user) {
@@ -111,9 +111,9 @@ const refreshTokenUser = async (req, res) => {
       });
     }
 
-    //const storedToken = await RefreshToken.findOne({ token: refreshToken });
+    const storedToken = await RefreshToken.findOne({ token: refreshToken });
 
-    const storedToken = await RefreshToken.deleteOne({ token: refreshToken });
+    
 
     if (!storedToken) {
       logger.warn("Invalid refresh token provided");
